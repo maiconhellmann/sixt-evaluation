@@ -1,0 +1,106 @@
+ext {
+    compileSdkVersion = 28
+    minSdkVersion = 20
+    targetSdkVersion = 28
+
+    kotlinVersion = '1.3.41'
+
+    buildTools = '3.4.1'
+
+    appCompatVersion = '1.0.2'
+    constraintLayoutVersion = '1.1.3'
+    cardViewVersion = '1.0.0'
+    recyclerViewVersion = '1.0.0'
+    ktxVersion = '1.0.2'
+
+    AndroidArchVersion = '1.1.1'
+    databindingVersion = '3.1.4'
+    lifeCycleVersion = '2.0.0'
+
+    //Navigation
+    navigationVersion = '2.1.0-alpha04'
+    fragmentXVersion = '1.1.0-beta01'
+
+    //Rx
+    rxJavaVersion = '2.2.7'
+    rxKotlinVersion = '2.2.0'
+    rxAndroidVersion = '2.1.1'
+
+    //Retrofit
+    retrofitVersion = '2.3.0'
+    logginInterceptorVersion = '3.12.1'
+
+    //Gson
+    gsonVersion = '2.8.5'
+
+    //Koin
+    koinVersion = '2.0.1'
+
+    //Room version
+    roomVersion = '2.1.0-alpha02'
+
+    //Glide image loader
+    glideVersion = '4.8.0'
+
+    //Test
+    junitVersion = '1.1.0'
+    espressoVersion = '3.1.1'
+    runnerVersion = '1.1.1'
+    mockitoVersion = '2.19.0'
+    robolectricVersion = '4.1'
+    androidXTestExtVersion = '1.1.0'
+
+    dependencies = [
+            kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+
+            appCompat            : "androidx.appcompat:appcompat:$appCompatVersion",
+            constraintLayout     : "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+            cardView             : "androidx.cardview:cardview:$cardViewVersion",
+            recyclerView         : "androidx.recyclerview:recyclerview:$recyclerViewVersion",
+
+            navigationFragment   : "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
+            navigationUi         : "androidx.navigation:navigation-ui-ktx:$navigationVersion",
+            fragmentX            : "androidx.fragment:fragment:$fragmentXVersion",
+
+            viewModel            : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion",
+            lifeCycle            : "android.arch.lifecycle:extensions:$AndroidArchVersion",
+
+            dataBinding          : "com.android.databinding:compiler:$databindingVersion",
+
+            ktx                  : "androidx.core:core-ktx:$ktxVersion",
+
+            rxJava               : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+            rxKotlin             : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
+            rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+
+            koin                 : "org.koin:koin-android:$koinVersion",
+            koinViewModel        : "org.koin:koin-androidx-viewmodel:$koinVersion",
+            koinScope            : "org.koin:koin-android-scope:$koinVersion",
+
+            retrofit             : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitRxAdapter    : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            gson                 : "com.google.code.gson:gson:$gsonVersion",
+            logginInterceptor    : "com.squareup.okhttp3:logging-interceptor:$logginInterceptorVersion",
+
+            room                 : "androidx.room:room-runtime:$roomVersion",
+            roomRxJava           : "androidx.room:room-rxjava2:$roomVersion",
+            roomCompiler         : "androidx.room:room-compiler:$roomVersion",
+
+            glide                : "com.github.bumptech.glide:glide:$glideVersion",
+            glideCompiler        : "com.github.bumptech.glide:compiler:$glideVersion",
+    ]
+
+    testDependencies = [
+            junit           : "androidx.test.ext:junit:$junitVersion",
+            espresso        : "androidx.test.espresso:espresso-core:$espressoVersion",
+            espressoContrib : "androidx.test.espresso:espresso-contrib:$espressoVersion",
+            runner          : "androidx.test:runner:$runnerVersion",
+            mockito         : "org.mockito:mockito-core:$mockitoVersion",
+            mockitoInline   : "org.mockito:mockito-inline:$mockitoVersion",
+            fragmentXTesting: "androidx.fragment:fragment-testing:$fragmentXVersion",
+            robolectric     : "org.robolectric:robolectric:$robolectricVersion",
+            androidXTestExt : "androidx.test.ext:truth:$androidXTestExtVersion",
+            koinTest        : "org.koin:koin-test:$koinVersion",
+    ]
+}
