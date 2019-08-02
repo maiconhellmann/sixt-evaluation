@@ -13,7 +13,7 @@ import io.reactivex.Single
  * (c) 2019 
  */
 class GetCarUseCase(private val repository: CarRepository, private val scheduler: Scheduler) {
-    fun getCarList(forceUpdate: Boolean): Single<Car> {
+    fun getCarList(forceUpdate: Boolean): Single<List<Car>> {
         return repository.getCarList(forceUpdate).subscribeOn(scheduler)
     }
 }

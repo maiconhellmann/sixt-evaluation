@@ -10,5 +10,5 @@ import io.reactivex.Single
  * 
  * (c) 2019 
  */interface CarRepository {
-    fun getCarList(forceUpdate: Boolean): Single<Car>
+    fun getCarList(forceUpdate: Boolean): Single<List<Car>>
 }
