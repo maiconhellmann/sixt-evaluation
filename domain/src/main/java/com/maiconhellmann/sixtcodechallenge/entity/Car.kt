@@ -1,4 +1,4 @@
-package com.maiconhellmann.sixtcodechallenge.model
+package com.maiconhellmann.sixtcodechallenge.entity
 
 data class Car(
     val carImageUrl: String,
