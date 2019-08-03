@@ -40,7 +40,7 @@
         android:id="@+id/textViewTransmission"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:drawableLeft="@drawable/ic_gearshift"
         android:drawablePadding="8dp"
         android:gravity="center"
@@ -52,7 +52,7 @@
         android:id="@+id/textViewFuel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/ic_gas_station"
         android:drawablePadding="8dp"
@@ -71,5 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="@id/cardViewImage"
         app:layout_constraintTop_toBottomOf="@id/cardViewImage"
-        tools:text="1.09 km" />
+        tools:text="1.09 km"
+        android:padding="4dp"
+        android:background="@drawable/bg_place"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
