@@ -29,6 +29,11 @@ import io.reactivex.rxkotlin.subscribeBy
 
     fun getCarList(forceUpdate: Boolean = false) {
         disposables += useCase.getCarList(forceUpdate = forceUpdate)
+            .doOnSubscribe {
+                if(!forceUpdate) {
+                    state.postValue(ViewState.Loading)
+                }
+            }
             .compose(StateMachineSingle())
             .observeOn(uiScheduler).subscribeBy(onSuccess = {
                 state.postValue(it)
