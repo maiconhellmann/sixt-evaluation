@@ -4,7 +4,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.maiconhellmann.sixtcodechallenge.R
 import com.maiconhellmann.sixtcodechallenge.entity.Car
+import com.maiconhellmann.sixtcodechallenge.util.GlideApp
 import com.maiconhellmann.sixtcodechallenge.util.extensions.inflate
+import kotlinx.android.synthetic.main.item_car.view.imageViewCar
+import kotlinx.android.synthetic.main.item_car.view.textViewCarName
+import kotlinx.android.synthetic.main.item_car.view.textViewFuel
+import kotlinx.android.synthetic.main.item_car.view.textViewTransmission
 
 class CarListAdapter : RecyclerView.Adapter<CarListAdapter.ViewHolder>() {
 
@@ -18,7 +23,14 @@ class CarListAdapter : RecyclerView.Adapter<CarListAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(parent.inflate(R.layout.item_car)) {
 
         fun bind(car: Car) = with(itemView) {
-            //TODO bind car
+            textViewCarName.text = context.getString(R.string.car_name, car.make, car.modelName)
+            textViewTransmission.text = car.transmission
+            textViewFuel.text = car.fuelType
+
+            GlideApp.with(context)
+                .load(car.carImageUrl)
+                .dontTransform()
+                .into(imageViewCar)
 
             itemView
         }
