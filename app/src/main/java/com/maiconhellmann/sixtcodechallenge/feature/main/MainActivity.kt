@@ -12,6 +12,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.maiconhellmann.sixtcodechallenge.R
 import com.maiconhellmann.sixtcodechallenge.databinding.ActivityMainBinding
+import com.maiconhellmann.sixtcodechallenge.feature.list.CarListViewModel
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /*
  * This file is part of SixtCodeChallenge.
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: CarListViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,8 @@ class MainActivity : AppCompatActivity() {
             setupActionBar(nav)
             setupBottomNavMenu(nav)
         }
+
+        viewModel.getCarList()
     }
 
     private fun getNavController() =

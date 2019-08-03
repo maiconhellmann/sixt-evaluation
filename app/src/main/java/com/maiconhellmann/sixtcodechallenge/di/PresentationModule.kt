@@ -1,5 +1,9 @@
 package com.maiconhellmann.sixtcodechallenge.di
 
+import com.maiconhellmann.sixtcodechallenge.feature.list.CarListAdapter
+import com.maiconhellmann.sixtcodechallenge.feature.list.CarListViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 /*
@@ -10,5 +14,9 @@ import org.koin.dsl.module
  * (c) 2019 
  */
 val presentationModule = module {
-        //TODO provide presentation module
+    factory { CarListAdapter() }
+
+    viewModel {
+        CarListViewModel(useCase = get(), uiScheduler = AndroidSchedulers.mainThread())
+    }
 }
