@@ -57,6 +57,8 @@ dependencies {
 
     kapt dependencies.dataBinding
 
+    implementation dependencies.googleMaps
+
     implementation dependencies.glide
     kapt dependencies.glideCompiler
 }
