@@ -1,5 +1,6 @@
 package com.maiconhellmann.sixtcodechallenge.feature.car
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -61,20 +62,22 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun setupViewModel() {
         viewModel.state.observe(this, Observer { state->
             when(state) {
                 is ViewState.Success -> {
                     createMarkers(state.data)
-                    setVisibilities(showList = true)
                 }
                 is ViewState.Failed -> {
                     showError(state.throwable)
-                    setVisibilities(showError = true)
                 }
-                is ViewState.Loading -> {
-                    setVisibilities(showProgressBar = true)
-                }
+            }
+        })
+
+        viewModel.currentPosition.observe(this, Observer {
+            if (it != null) {
+                mMap?.isMyLocationEnabled = true
             }
         })
     }
@@ -101,15 +104,6 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
         mMap?.moveCamera(cu)
     }
 
-    private fun setVisibilities(
-        showProgressBar: Boolean = false,
-        showList: Boolean = false,
-        showError: Boolean = false,
-        isRefreshing: Boolean = false
-    ) {
-        //TODO setupt view visibilities
-    }
-
     private fun showError(throwable: Throwable) {
         view?.context?.toast(throwable.toString())
         Log.e(CarListFragment::class.java.simpleName, "Error", throwable)
@@ -119,10 +113,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
         Log.d(CarListFragment::class.java.simpleName, "onMapReady")
 
         mMap = googleMap
-        mMap?.apply {
-            isIndoorEnabled = true
-
-            with(uiSettings) {
+        mMap?.also {
+            with(it.uiSettings) {
                 isIndoorLevelPickerEnabled = false
                 isMyLocationButtonEnabled = true
                 isMapToolbarEnabled = true
@@ -132,6 +124,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
                 isScrollGesturesEnabled = true
                 isTiltGesturesEnabled = false
                 isZoomGesturesEnabled = true
+                isMyLocationButtonEnabled = true
             }
         }
 
