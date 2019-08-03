@@ -12,8 +12,11 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
 import com.maiconhellmann.sixtcodechallenge.R
 import com.maiconhellmann.sixtcodechallenge.databinding.CarMapFragmentBinding
+import com.maiconhellmann.sixtcodechallenge.entity.Car
 import com.maiconhellmann.sixtcodechallenge.feature.list.CarListFragment
 import com.maiconhellmann.sixtcodechallenge.feature.list.CarListViewModel
 import com.maiconhellmann.sixtcodechallenge.util.extensions.toast
@@ -47,8 +50,6 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
         binding.lifecycleOwner = this
 
-        setupViewModel()
-
         var mapViewBundle: Bundle? = null
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY)
@@ -64,7 +65,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
         viewModel.state.observe(this, Observer { state->
             when(state) {
                 is ViewState.Success -> {
-                    //TODO update data
+                    createMarkers(state.data)
                     setVisibilities(showList = true)
                 }
                 is ViewState.Failed -> {
@@ -76,6 +77,28 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
                 }
             }
         })
+    }
+
+    private fun createMarkers(list: List<Car>) {
+        Log.d(CarListFragment::class.java.simpleName, "createMarkers")
+
+        mMap?.clear()
+
+        val builder = LatLngBounds.Builder()
+
+        list.map {
+            MarkerOptions()
+                .position(LatLng(it.latitude, it.longitude))
+                .title(it.make)
+        }.forEach {
+            builder.include(it.position)
+            mMap?.addMarker(it)
+        }
+
+        val bounds = builder.build()
+        val cu = CameraUpdateFactory.newLatLngBounds(bounds, 100)
+
+        mMap?.moveCamera(cu)
     }
 
     private fun setVisibilities(
@@ -93,9 +116,10 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
+        Log.d(CarListFragment::class.java.simpleName, "onMapReady")
+
         mMap = googleMap
         mMap?.apply {
-            setMinZoomPreference(12f)
             isIndoorEnabled = true
 
             with(uiSettings) {
@@ -109,11 +133,9 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
                 isTiltGesturesEnabled = false
                 isZoomGesturesEnabled = true
             }
-
-            //TODO remove fixed point: new york
-            val ny = LatLng(40.7143528, -74.0059731)
-            moveCamera(CameraUpdateFactory.newLatLng(ny))
         }
+
+        setupViewModel()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

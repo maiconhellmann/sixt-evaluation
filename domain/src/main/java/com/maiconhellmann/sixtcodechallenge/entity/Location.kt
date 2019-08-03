@@ -6,4 +6,4 @@ package com.maiconhellmann.sixtcodechallenge.entity
  * Created by maiconhellmann on 03/08/2019
  * 
  * (c) 2019 
- */class Location(private val latitude: Double, private val longitude: Double)
+ */class Location(val latitude: Double, val longitude: Double)

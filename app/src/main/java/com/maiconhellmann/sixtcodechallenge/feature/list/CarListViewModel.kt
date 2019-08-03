@@ -1,8 +1,8 @@
 package com.maiconhellmann.sixtcodechallenge.feature.list
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.maiconhellmann.sixtcodechallenge.entity.Car
+import com.maiconhellmann.sixtcodechallenge.entity.Location
 import com.maiconhellmann.sixtcodechallenge.usecase.GetCarUseCase
 import com.maiconhellmann.sixtcodechallenge.util.viewmodel.BaseViewModel
 import com.maiconhellmann.sixtcodechallenge.util.viewmodel.StateMachineSingle
@@ -25,6 +25,8 @@ import io.reactivex.rxkotlin.subscribeBy
         value = ViewState.Loading
     }
 
+    var currentPosition = MutableLiveData<Location>()
+
     fun getCarList(forceUpdate: Boolean = false) {
         disposables += useCase.getCarList(forceUpdate = forceUpdate)
             .compose(StateMachineSingle())
@@ -38,7 +40,9 @@ import io.reactivex.rxkotlin.subscribeBy
             .observeOn(uiScheduler)
             .subscribeBy(
                 onNext = {
-                    Log.d("LocationService", "Location: $it")
+                    it?.let { location->
+                        currentPosition.postValue(location)
+                    }
                 }
             )
     }
