@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation android:id="@+id/nav_graph"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/car_map_dest"
+    tools:ignore="MissingDefaultResource">
+
+    <fragment
+        android:id="@+id/car_list_dest"
+        android:name="com.maiconhellmann.sixtcodechallenge.feature.list.CarListFragment"
+        android:label="CarListFragment"
+        tools:layout="com.maiconhellmann.sixtcodechallenge.feature.list.CarListFragment" />
+
+    <fragment
+        android:id="@+id/car_map_dest"
+        android:name="com.maiconhellmann.sixtcodechallenge.feature.car.CarMapFragment"
+        android:label="CarMapFragment"
+        tools:layout="com.maiconhellmann.sixtcodechallenge.feature.car.CarMapFragment" />
+</navigation>
