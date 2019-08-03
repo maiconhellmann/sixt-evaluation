@@ -16,4 +16,5 @@ class GetCarUseCase(private val repository: CarRepository, private val scheduler
     fun getCarList(forceUpdate: Boolean): Single<List<Car>> {
         return repository.getCarList(forceUpdate).subscribeOn(scheduler)
     }
+    fun getLocationUpdates() = repository.getLocationUpdates()
 }

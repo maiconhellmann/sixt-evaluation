@@ -1,19 +1,20 @@
 package com.maiconhellmann.sixtcodechallenge.feature.main
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.maiconhellmann.sixtcodechallenge.R
 import com.maiconhellmann.sixtcodechallenge.databinding.ActivityMainBinding
 import com.maiconhellmann.sixtcodechallenge.feature.list.CarListViewModel
-import org.koin.android.ext.android.inject
+import com.maiconhellmann.sixtcodechallenge.util.extensions.hasLocationPermission
+import com.maiconhellmann.sixtcodechallenge.util.extensions.requestLocationPermission
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /*
@@ -42,6 +43,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.getCarList()
+        viewModel.getLocation()
+
+        requestLocationPermission()
+
     }
 
     private fun getNavController() =
@@ -58,5 +63,16 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomNavMenu(navController: NavController) {
         val bottomNav = binding.bottomNavView
         bottomNav.setupWithNavController(navController)
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (hasLocationPermission()) {
+            viewModel.getLocation()
+        }
     }
 }

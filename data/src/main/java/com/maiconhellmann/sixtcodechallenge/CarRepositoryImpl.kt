@@ -1,9 +1,12 @@
 package com.maiconhellmann.sixtcodechallenge
 
 import com.maiconhellmann.sixtcodechallenge.entity.Car
+import com.maiconhellmann.sixtcodechallenge.entity.Location
 import com.maiconhellmann.sixtcodechallenge.local.source.CarCacheDataSource
 import com.maiconhellmann.sixtcodechallenge.remote.source.CarRemoteDataSource
 import com.maiconhellmann.sixtcodechallenge.repository.CarRepository
+import com.maiconhellmann.sixtcodechallenge.service.LocationServiceDataSource
+import io.reactivex.Observable
 import io.reactivex.Single
 
 /*
@@ -14,8 +17,10 @@ import io.reactivex.Single
  * (c) 2019 
  */class CarRepositoryImpl(
     private val cacheDataSource: CarCacheDataSource,
-    private val remoteDataSource: CarRemoteDataSource
+    private val remoteDataSource: CarRemoteDataSource,
+    private val locationDataSource: LocationServiceDataSource
 ) : CarRepository {
+
     override fun getCarList(forceUpdate: Boolean): Single<List<Car>> {
         return if (forceUpdate) {
             getCarListRemote(forceUpdate)
@@ -38,5 +43,8 @@ import io.reactivex.Single
             }
             Single.just(list)
         }
+    }
+    override fun getLocationUpdates(): Observable<Location> {
+        return locationDataSource.getLocationUpdates()
     }
 }

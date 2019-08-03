@@ -1,6 +1,8 @@
 package com.maiconhellmann.sixtcodechallenge.repository
 
 import com.maiconhellmann.sixtcodechallenge.entity.Car
+import com.maiconhellmann.sixtcodechallenge.entity.Location
+import io.reactivex.Observable
 import io.reactivex.Single
 
 /*
@@ -11,4 +13,5 @@ import io.reactivex.Single
  * (c) 2019 
  */interface CarRepository {
     fun getCarList(forceUpdate: Boolean): Single<List<Car>>
+    fun getLocationUpdates(): Observable<Location>
 }

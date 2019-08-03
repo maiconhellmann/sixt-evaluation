@@ -15,8 +15,8 @@ import org.koin.dsl.module
 val repositoryModule = module {
     //Car
     factory<CarRepository> {
-        CarRepositoryImpl(cacheDataSource = get(), remoteDataSource = get())
+        CarRepositoryImpl(cacheDataSource = get(), remoteDataSource = get(), locationDataSource = get())
     }
 }
 
-val dataModules = listOf(remoteDataSourceModule, repositoryModule, cacheDataModule)
+val dataModules = listOf(remoteDataSourceModule, repositoryModule, cacheDataModule, locationModule)

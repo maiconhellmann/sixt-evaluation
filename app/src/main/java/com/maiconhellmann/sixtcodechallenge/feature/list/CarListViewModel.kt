@@ -1,5 +1,6 @@
 package com.maiconhellmann.sixtcodechallenge.feature.list
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.maiconhellmann.sixtcodechallenge.entity.Car
 import com.maiconhellmann.sixtcodechallenge.usecase.GetCarUseCase
@@ -30,5 +31,15 @@ import io.reactivex.rxkotlin.subscribeBy
             .observeOn(uiScheduler).subscribeBy(onSuccess = {
                 state.postValue(it)
             })
+    }
+
+    fun getLocation() {
+        disposables += useCase.getLocationUpdates()
+            .observeOn(uiScheduler)
+            .subscribeBy(
+                onNext = {
+                    Log.d("LocationService", "Location: $it")
+                }
+            )
     }
 }
