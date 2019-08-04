@@ -44,6 +44,7 @@ ext {
 
     //Maps
     googleMapsVersion = '17.0.0'
+    googleMapsUtils = '0.5'
 
     //Test
     junitVersion = '1.1.0'
@@ -95,6 +96,7 @@ ext {
 
             googleMaps           : "com.google.android.gms:play-services-maps:$googleMapsVersion",
             googleLocation       : "com.google.android.gms:play-services-location:$googleMapsVersion",
+            googleMapsUtils      : "com.google.maps.android:android-maps-utils:$googleMapsUtils",
     ]
 
     testDependencies = [

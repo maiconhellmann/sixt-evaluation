@@ -15,9 +15,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
-import com.maiconhellmann.sixtcodechallenge.R
 import com.maiconhellmann.sixtcodechallenge.databinding.CarMapFragmentBinding
-import com.maiconhellmann.sixtcodechallenge.entity.Car
 import com.maiconhellmann.sixtcodechallenge.feature.list.CarItemModel
 import com.maiconhellmann.sixtcodechallenge.feature.list.CarListFragment
 import com.maiconhellmann.sixtcodechallenge.feature.list.CarListViewModel
@@ -25,6 +23,10 @@ import com.maiconhellmann.sixtcodechallenge.util.extensions.afterLayout
 import com.maiconhellmann.sixtcodechallenge.util.extensions.toast
 import com.maiconhellmann.sixtcodechallenge.util.viewmodel.ViewState
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import com.google.maps.android.clustering.ClusterManager
+import com.maiconhellmann.sixtcodechallenge.R
+
+
 
 /*
  * This file is part of SixtCodeChallenge.
@@ -36,9 +38,10 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
     private val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
-    private var mMap: GoogleMap?= null
+    private var map: GoogleMap?= null
     private lateinit var binding: CarMapFragmentBinding
     private val viewModel: CarListViewModel by sharedViewModel()
+    private var clusterManager: ClusterManager<CarClusterItem>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -79,7 +82,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
         viewModel.currentPosition.observe(this, Observer {
             if (it != null) {
-                mMap?.isMyLocationEnabled = true
+                map?.isMyLocationEnabled = true
             }
         })
     }
@@ -87,24 +90,28 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
     private fun createMarkers(list: List<CarItemModel>) {
         Log.d(CarListFragment::class.java.simpleName, "createMarkers")
 
-        mMap?.clear()
+        setupClusterManager()
+        map?.clear()
 
         val builder = LatLngBounds.Builder()
 
         list.map {
+            clusterManager?.addItem(CarClusterItem(it.car.latitude, it.car.longitude, getString(R.string.car_name, it.car.make, it.car.modelName), ""))
             MarkerOptions()
                 .position(LatLng(it.car.latitude, it.car.longitude))
                 .title(getString(R.string.car_name, it.car.make, it.car.modelName))
         }.forEach {
             builder.include(it.position)
-            mMap?.addMarker(it)
+            //map?.addMarker(it)
         }
 
         val bounds = builder.build()
         val padding = context?.resources?.getDimensionPixelSize(R.dimen.map_padding) ?: 100
         val cu = CameraUpdateFactory.newLatLngBounds(bounds, padding)
 
-        mMap?.moveCamera(cu)
+        map?.moveCamera(cu)
+
+        clusterManager?.cluster()
     }
 
     private fun showError(throwable: Throwable) {
@@ -115,8 +122,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
     override fun onMapReady(googleMap: GoogleMap?) {
         Log.d(CarListFragment::class.java.simpleName, "onMapReady")
 
-        mMap = googleMap
-        mMap?.also {
+        map = googleMap
+        map?.also {
             with(it.uiSettings) {
                 isIndoorLevelPickerEnabled = false
                 isMyLocationButtonEnabled = true
@@ -135,6 +142,13 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
         binding.mapView.afterLayout {
             setupViewModel()
         }
+    }
+
+    private fun setupClusterManager() {
+        clusterManager = ClusterManager(context, map)
+        clusterManager?.clearItems()
+        map?.setOnCameraIdleListener(clusterManager)
+        map?.setOnMarkerClickListener(clusterManager)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
