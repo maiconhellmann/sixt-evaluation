@@ -37,28 +37,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val toolbar = binding.toolbar
-        setSupportActionBar(toolbar)
-
-        getNavController()?.let { nav->
-            setupActionBar(nav)
+        getNavController()?.let { nav ->
             setupBottomNavMenu(nav)
         }
 
         setupViewModel()
 
         requestLocationPermission()
-
     }
 
     private fun setupViewModel() {
-        viewModel.state.observe(this, Observer { state->
-            when(state) {
+        viewModel.state.observe(this, Observer { state ->
+            when (state) {
                 is ViewState.Success -> {
-                    setVisibilities(showToolbar = true, showNavView = true)
+                    setVisibilities(showNavView = true)
                 }
                 is ViewState.Failed -> {
-                    setVisibilities(showToolbar = true, showNavView = true)
+                    setVisibilities(showNavView = true)
                 }
                 is ViewState.Loading -> {
                     setVisibilities(showProgressBar = true)
@@ -70,21 +65,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setVisibilities(
-        showProgressBar: Boolean = false,
-        showToolbar: Boolean = false,
-        showNavView: Boolean = false
+        showProgressBar: Boolean = false, showNavView: Boolean = false
     ) {
         binding.progressBar.visible(showProgressBar)
-        binding.toolbar.visible(showToolbar)
         binding.bottomNavView.visible(showNavView)
     }
 
     private fun getNavController() =
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?)?.navController
-
-    private fun setupActionBar(navController: NavController) {
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)

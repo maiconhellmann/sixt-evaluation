@@ -8,5 +8,10 @@
     </style>
 
     <style name="BottomNavigation" parent="Widget.Design.BottomNavigationView">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="itemBackground">@color/colorPrimary</item>
+        <item name="itemIconTint">@drawable/nav_bottom_selector</item>
+        <item name="itemTextColor">@drawable/nav_bottom_selector</item>
+
     </style>
 </resources>
