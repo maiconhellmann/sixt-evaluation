@@ -1,6 +1,8 @@
 package com.maiconhellmann.sixtcodechallenge.local.mapper
 
 import com.maiconhellmann.sixtcodechallenge.entity.Car
+import com.maiconhellmann.sixtcodechallenge.entity.FuelType
+import com.maiconhellmann.sixtcodechallenge.entity.TransmissionType
 import com.maiconhellmann.sixtcodechallenge.local.model.CarCache
 
 /*
@@ -18,7 +20,7 @@ object CarCacheMapper {
             color = car.color,
             name = car.name,
             fuelLevel = car.fuelLevel,
-            fuelType = car.fuelType,
+            fuelType = car.fuelType.value,
             group = car.group,
             innerCleanliness = car.innerCleanliness,
             latitude = car.latitude,
@@ -28,7 +30,7 @@ object CarCacheMapper {
             modelIdentifier = car.modelIdentifier,
             modelName = car.modelName,
             series = car.series,
-            transmission = car.transmission)
+            transmission = car.transmission.value)
     }
 
     fun map(car: CarCache): Car {
@@ -38,7 +40,7 @@ object CarCacheMapper {
             color = car.color,
             name = car.name,
             fuelLevel = car.fuelLevel,
-            fuelType = car.fuelType,
+            fuelType = FuelType.fromValue(car.fuelType),
             group = car.group,
             innerCleanliness = car.innerCleanliness,
             latitude = car.latitude,
@@ -48,7 +50,7 @@ object CarCacheMapper {
             modelIdentifier = car.modelIdentifier,
             modelName = car.modelName,
             series = car.series,
-            transmission = car.transmission)
+            transmission = TransmissionType.fromValue(car.transmission))
     }
 
     fun mapCarCacheList(list: List<Car>): List<CarCache> {

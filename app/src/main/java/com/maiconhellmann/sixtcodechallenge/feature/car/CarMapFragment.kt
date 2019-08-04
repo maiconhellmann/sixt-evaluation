@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.maiconhellmann.sixtcodechallenge.R
 import com.maiconhellmann.sixtcodechallenge.databinding.CarMapFragmentBinding
 import com.maiconhellmann.sixtcodechallenge.entity.Car
+import com.maiconhellmann.sixtcodechallenge.feature.list.CarItemModel
 import com.maiconhellmann.sixtcodechallenge.feature.list.CarListFragment
 import com.maiconhellmann.sixtcodechallenge.feature.list.CarListViewModel
 import com.maiconhellmann.sixtcodechallenge.util.extensions.afterLayout
@@ -83,7 +84,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
         })
     }
 
-    private fun createMarkers(list: List<Car>) {
+    private fun createMarkers(list: List<CarItemModel>) {
         Log.d(CarListFragment::class.java.simpleName, "createMarkers")
 
         mMap?.clear()
@@ -92,8 +93,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
         list.map {
             MarkerOptions()
-                .position(LatLng(it.latitude, it.longitude))
-                .title(getString(R.string.car_name, it.make, it.modelName))
+                .position(LatLng(it.car.latitude, it.car.longitude))
+                .title(getString(R.string.car_name, it.car.make, it.car.modelName))
         }.forEach {
             builder.include(it.position)
             mMap?.addMarker(it)

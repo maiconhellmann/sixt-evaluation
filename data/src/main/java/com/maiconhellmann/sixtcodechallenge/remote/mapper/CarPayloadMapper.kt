@@ -1,6 +1,8 @@
 package com.maiconhellmann.sixtcodechallenge.remote.mapper
 
 import com.maiconhellmann.sixtcodechallenge.entity.Car
+import com.maiconhellmann.sixtcodechallenge.entity.FuelType
+import com.maiconhellmann.sixtcodechallenge.entity.TransmissionType
 import com.maiconhellmann.sixtcodechallenge.remote.model.CarPayload
 
 /*
@@ -17,7 +19,7 @@ import com.maiconhellmann.sixtcodechallenge.remote.model.CarPayload
             color = payload.color,
             name = payload.name,
             fuelLevel = payload.fuelLevel,
-            fuelType = payload.fuelType,
+            fuelType = FuelType.fromValue(payload.fuelType),
             group = payload.group,
             innerCleanliness = payload.innerCleanliness,
             latitude = payload.latitude,
@@ -27,7 +29,7 @@ import com.maiconhellmann.sixtcodechallenge.remote.model.CarPayload
             modelIdentifier = payload.modelIdentifier,
             modelName = payload.modelName,
             series = payload.series,
-            transmission = payload.transmission)
+            transmission = TransmissionType.fromValue(payload.transmission))
     }
 
     fun map(car: Car): CarPayload {
@@ -37,7 +39,7 @@ import com.maiconhellmann.sixtcodechallenge.remote.model.CarPayload
             color = car.color,
             name = car.name,
             fuelLevel = car.fuelLevel,
-            fuelType = car.fuelType,
+            fuelType = car.fuelType.value,
             group = car.group,
             innerCleanliness = car.innerCleanliness,
             latitude = car.latitude,
@@ -47,7 +49,7 @@ import com.maiconhellmann.sixtcodechallenge.remote.model.CarPayload
             modelIdentifier = car.modelIdentifier,
             modelName = car.modelName,
             series = car.series,
-            transmission = car.transmission
+            transmission = car.transmission.value
         )
     }
 

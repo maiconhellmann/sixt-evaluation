@@ -21,7 +21,7 @@ import io.reactivex.rxkotlin.subscribeBy
     private val useCase: GetCarUseCase, private val uiScheduler: Scheduler
 ) : BaseViewModel() {
 
-    val state = MutableLiveData<ViewState<List<Car>>>().apply {
+    val state = MutableLiveData<ViewState<List<CarItemModel>>>().apply {
         value = ViewState.Loading
     }
 
@@ -32,6 +32,25 @@ import io.reactivex.rxkotlin.subscribeBy
             .doOnSubscribe {
                 if(!forceUpdate) {
                     state.postValue(ViewState.Loading)
+                }
+            }.map {
+                it.map { car->
+                    var distance: Float?=null
+
+                    currentPosition.value?.let { location->
+                        val l1 = android.location.Location("").apply {
+                            latitude = car.latitude
+                            longitude = car.longitude
+                        }
+                        val l2 = android.location.Location("").apply {
+                            latitude = location.latitude
+                            longitude = location.longitude
+                        }
+
+                        distance = l1.distanceTo(l2)
+                    }
+
+                    CarItemModel(car, distance)
                 }
             }
             .compose(StateMachineSingle())
@@ -47,6 +66,7 @@ import io.reactivex.rxkotlin.subscribeBy
                 onNext = {
                     it?.let { location->
                         currentPosition.postValue(location)
+                        getCarList()
                     }
                 }
             )
