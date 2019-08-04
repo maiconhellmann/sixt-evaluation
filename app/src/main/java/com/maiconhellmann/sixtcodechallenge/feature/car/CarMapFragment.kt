@@ -20,6 +20,7 @@ import com.maiconhellmann.sixtcodechallenge.databinding.CarMapFragmentBinding
 import com.maiconhellmann.sixtcodechallenge.entity.Car
 import com.maiconhellmann.sixtcodechallenge.feature.list.CarListFragment
 import com.maiconhellmann.sixtcodechallenge.feature.list.CarListViewModel
+import com.maiconhellmann.sixtcodechallenge.util.extensions.afterLayout
 import com.maiconhellmann.sixtcodechallenge.util.extensions.toast
 import com.maiconhellmann.sixtcodechallenge.util.viewmodel.ViewState
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -99,7 +100,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
         }
 
         val bounds = builder.build()
-        val cu = CameraUpdateFactory.newLatLngBounds(bounds, 100)
+        val padding = context?.resources?.getDimensionPixelSize(R.dimen.map_padding) ?: 100
+        val cu = CameraUpdateFactory.newLatLngBounds(bounds, padding)
 
         mMap?.moveCamera(cu)
     }
@@ -128,7 +130,10 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
             }
         }
 
-        setupViewModel()
+        //Make sure the view is ready
+        binding.mapView.afterLayout {
+            setupViewModel()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
