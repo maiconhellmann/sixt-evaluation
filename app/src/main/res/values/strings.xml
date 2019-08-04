@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">SixtCodeChallenge</string>
+    <string name="app_name">Sixt Code Challenge</string>
     <string name="map">Map</string>
-    <string name="car_list">Car list</string>
+    <string name="car_list_title">Vehicles</string>
     <string name="try_again">Try again</string>
     <string name="car_name">%1$s %2$s</string>
 </resources>

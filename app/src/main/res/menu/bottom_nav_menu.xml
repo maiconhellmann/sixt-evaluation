@@ -7,5 +7,5 @@
     <item
         android:id="@+id/car_list_dest"
         android:icon="@drawable/ic_view_list_black_24dp"
-        android:title="@string/car_list" />
+        android:title="@string/car_list_title" />
 </menu>

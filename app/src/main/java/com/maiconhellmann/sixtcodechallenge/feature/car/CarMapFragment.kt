@@ -93,7 +93,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
         list.map {
             MarkerOptions()
                 .position(LatLng(it.latitude, it.longitude))
-                .title(it.make)
+                .title(getString(R.string.car_name, it.make, it.modelName))
         }.forEach {
             builder.include(it.position)
             mMap?.addMarker(it)
