@@ -62,4 +62,20 @@ dependencies {
 
     implementation dependencies.glide
     kapt dependencies.glideCompiler
+
+    debugImplementation testDependencies.fragmentXTesting
+
+    testImplementation testDependencies.robolectric
+    testImplementation testDependencies.androidXTestExt
+    testImplementation testDependencies.espresso
+    testImplementation testDependencies.espressoContrib
+    testImplementation testDependencies.koinTest
+    testImplementation testDependencies.androidArchTesting
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
+    testImplementation testDependencies.mockitoInline
+
+    androidTestImplementation testDependencies.koinTest
+    androidTestImplementation testDependencies.androidArchTesting
+    androidTestImplementation testDependencies.runner
 }
