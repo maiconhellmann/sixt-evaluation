@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,7 +26,9 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
  */class CarListFragment : Fragment() {
     private lateinit var binding: CarListFragmentBinding
     private val carAdapter: CarListAdapter by inject()
-    private val viewModel: CarListViewModel by sharedViewModel()
+
+    @get:VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    val viewModel: CarListViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
