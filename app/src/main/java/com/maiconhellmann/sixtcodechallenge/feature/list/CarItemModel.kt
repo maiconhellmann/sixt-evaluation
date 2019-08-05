@@ -9,6 +9,6 @@ import com.maiconhellmann.sixtcodechallenge.entity.Car
  * 
  * (c) 2019 
  */class CarItemModel(val car: Car, val distance: Float? = null) {
-    fun distanceInMeters() = distance?.div(1000)
+    fun distanceInKilometers() = distance?.div(1000)
     fun isDistanceInMeters() = distance != null && distance < 1000
 }

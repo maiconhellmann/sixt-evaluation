@@ -33,9 +33,9 @@ class CarListAdapter : RecyclerView.Adapter<CarListAdapter.ViewHolder>() {
                 textViewPlace.visible(false)
             } else {
                 if(model.isDistanceInMeters()) {
-                    textViewPlace.text = context.getString(R.string.distance_meter, model.distanceInMeters())
+                    textViewPlace.text = context.getString(R.string.distance_meter, model.distance)
                 } else {
-                    textViewPlace.text = context.getString(R.string.distance_km, model.distance)
+                    textViewPlace.text = context.getString(R.string.distance_km, model.distanceInKilometers())
                 }
 
                 textViewPlace.visible(true)

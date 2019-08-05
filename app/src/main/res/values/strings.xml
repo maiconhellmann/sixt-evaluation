@@ -6,7 +6,7 @@
     <string name="car_name">%1$s %2$s</string>
     <string name="vehicle_image_content">Vehicle image</string>
     <string name="distance_km">%1$.0f km</string>
-    <string name="distance_meter">%1$.0f km</string>
+    <string name="distance_meter">%1$.0f m</string>
     <string name="automatic">Automatic</string>
     <string name="manual">Manual</string>
     <string name="unkown">Unkknown</string>

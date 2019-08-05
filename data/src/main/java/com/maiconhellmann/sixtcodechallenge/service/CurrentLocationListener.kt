@@ -4,10 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.maiconhellmann.sixtcodechallenge.entity.Location
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
+import com.google.android.gms.location.LocationResult
+
+
 
 /*
  * This file is part of SixtCodeChallenge.
@@ -25,6 +30,22 @@ class CurrentLocationListener(context: Context) {
     @SuppressLint("MissingPermission")
     fun startListening(): Observable<Location> {
         Log.d("LocationService", "startListening")
+
+        val locationRequest = LocationRequest
+            .create().apply {
+                interval = 1000
+            }
+
+        val mLocationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                for (location in locationResult.locations) {
+                    Log.d("LocationService", "LocationService, location: $location")
+                    updates.onNext(Location(location.latitude, location.longitude))
+                }
+            }
+        }
+        fusedLocationClient?.requestLocationUpdates(locationRequest, mLocationCallback, null)
+
         fusedLocationClient?.lastLocation?.addOnSuccessListener { location->
             location?.let {
                 Log.d("LocationService", "LocationService, location: $it")
