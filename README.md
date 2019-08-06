@@ -52,6 +52,9 @@ Kotlin
 * Domain module testing
 * Default error handling for internet connection, permissions and api requests
 * App icon
+* Javadoc
+* Location updates
+* Create a component to observe the location updates the update the distance of the user and the car in real time
 
 ## Libraries
 * Koin  

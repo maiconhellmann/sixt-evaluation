@@ -66,7 +66,6 @@ import io.reactivex.rxkotlin.subscribeBy
                 onNext = {
                     it?.let { location->
                         currentPosition.postValue(location)
-                        getCarList()
                     }
                 }
             )
