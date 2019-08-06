@@ -44,6 +44,7 @@ class CarListAdapter : RecyclerView.Adapter<CarListAdapter.ViewHolder>() {
             GlideApp.with(context)
                 .load(car.carImageUrl)
                 .dontTransform()
+                .error(R.drawable.ic_error_red_24dp)
                 .into(imageViewCar)
 
             itemView
