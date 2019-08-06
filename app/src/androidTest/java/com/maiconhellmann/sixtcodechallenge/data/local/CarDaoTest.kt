@@ -15,14 +15,14 @@ import org.koin.test.get
 
 /*
  * This file is part of hellmann-architeture.
- * 
+ *
  * Created by maiconhellmann on 09/06/2019
- * 
- * (c) 2019 
+ *
+ * (c) 2019
  */
 class CarDaoTest : AutoCloseKoinTest() {
 
-    val articleDao: CarDao = get()
+    val carDao: CarDao = get()
 
     @Before
     fun before() {
@@ -34,8 +34,8 @@ class CarDaoTest : AutoCloseKoinTest() {
     }
 
     @Test
-    fun articleDaoTesting() {
-        articleDao.apply {
+    fun carDaoTesting() {
+        carDao.apply {
 
             val carCache = CarCache(
                 id = "WMWSW31030T222518",

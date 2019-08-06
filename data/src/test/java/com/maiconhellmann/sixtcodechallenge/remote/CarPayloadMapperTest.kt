@@ -4,15 +4,9 @@ import com.maiconhellmann.sixtcodechallenge.remote.mapper.CarPayloadMapper
 import com.maiconhellmann.sixtcodechallenge.remote.model.CarPayload
 import org.junit.Test
 
-/*
- * This file is part of hellmann-architeture.
- * 
- * Created by maiconhellmann on 05/06/2019
- * 
- * (c) 2019 
- */class CarPayloadMapperTest {
+class CarPayloadMapperTest {
     @Test
-    fun `ArticlePayload to Article`() {
+    fun `CarPayload to Car`() {
         val payload = CarPayload(
             id = "WMWSW31030T222518",
             modelIdentifier = "mini",

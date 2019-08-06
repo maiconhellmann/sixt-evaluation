@@ -50,7 +50,7 @@ ext {
     junitVersion = '1.1.0'
     espressoVersion = '3.1.1'
     runnerVersion = '1.1.1'
-    mockitoVersion = '2.19.0'
+    mockitoVersion = '3.0.0'
     robolectricVersion = '4.1'
     androidXTestExtVersion = '1.1.0'
     androidArchTestingVersion = '1.1.1'
@@ -111,6 +111,7 @@ ext {
             robolectric       : "org.robolectric:robolectric:$robolectricVersion",
             androidXTestExt   : "androidx.test.ext:truth:$androidXTestExtVersion",
             koinTest          : "org.koin:koin-test:$koinVersion",
+
             androidArchTesting: "android.arch.core:core-testing:$androidArchTestingVersion",
     ]
 }

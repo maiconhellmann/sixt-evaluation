@@ -37,7 +37,7 @@ import org.robolectric.annotation.Config
 class CarListFragmentUnitTest {
 
     private lateinit var mockNavController: NavController
-    private lateinit var articleList: FragmentScenario<CarListFragment>
+    private lateinit var carList: FragmentScenario<CarListFragment>
 
     val carItemModel = CarItemModel(
         Car(
@@ -64,8 +64,8 @@ class CarListFragmentUnitTest {
     }
 
     @Test
-    fun `articleListFragment test`() {
-        articleList = launchFragmentInContainer<CarListFragment>().onFragment {
+    fun `carListFragment test`() {
+        carList = launchFragmentInContainer<CarListFragment>().onFragment {
             Navigation.setViewNavController(it.requireView(), mockNavController)
 
             //Loading

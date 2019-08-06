@@ -35,7 +35,7 @@ class RemoteDataSourceTest {
     }
 
     @Test
-    fun `article list is empty`() {
+    fun `car list is empty`() {
         `when`(serverApi.getCarList()).then {
             Single.just(emptyList<CarPayload>())
         }
@@ -48,7 +48,7 @@ class RemoteDataSourceTest {
     }
 
     @Test
-    fun `article list NOT empty`() {
+    fun `car list NOT empty`() {
         `when`(serverApi.getCarList()).then {
             Single.just(carList)
         }
