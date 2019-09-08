@@ -1,12 +1,6 @@
 ## User story
 Small Android app that displays a group of cars on a map and a list.
 
-The board for the project can be found on the github repository:  
-[Project board](https://github.com/maiconhellmann/sixt-evaluation/projects/1)
-
-#### Api
-Url=https://cdn.sixt.io/codingtask/cars 
- 
 ## Architeture
 MVVM(Model View ViewModel) - using Repository, UseCase and ViewModel  
 Modularization to make gradle build faster
